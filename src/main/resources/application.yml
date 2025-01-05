@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ged/api/
+spring:
+  profiles:
+    active: production
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${keycloak.domain}/realms/${keycloak.realm}
+jwt:
+  auth:
+    converter:
+      resource-id: authenticationClientId
+
+keycloak:
+  realm: sistema
+  domain: localhost:9081
+  adminClientId: admin-cli
+  adminClientSecret: lllx08MlhGbZLpejvJ7vgbzutxO04WmX
+  client: sistemaClient
+  urls:
+    auth: http://${keycloak.domain}
+
+quarkus:
+  http:
+    cors:
+      ~: true
+      origins: http://localhost:4200
