@@ -1,6 +1,7 @@
 package org.ged.auth.api.v1;
 
 
+import org.ged.auth.client.response.Token;
 import org.ged.auth.dto.UserRecord;
 import org.ged.auth.service.KeycloakUserService;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ public class KeycloakUserController {
 
 
     private final KeycloakUserService keycloakUserService;
+
 
     public KeycloakUserController(KeycloakUserService keycloakUserService) {
         this.keycloakUserService = keycloakUserService;
