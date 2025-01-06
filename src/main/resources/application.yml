@@ -2,6 +2,7 @@ server:
   port: 8080
   servlet:
     context-path: /ged/api/
+
 spring:
   profiles:
     active: production
@@ -10,6 +11,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://${keycloak.domain}/realms/${keycloak.realm}
+
 jwt:
   auth:
     converter:
@@ -25,6 +27,11 @@ keycloak:
     auth: http://${keycloak.domain}
 
 quarkus:
+  oidc:
+    auth-server-url: http://${keycloak.domain}/realms/${keycloak.realm}
+    client-id: ${keycloak.client}
+    credentials:
+      secret: ${keycloak.adminClientSecret}
   http:
     cors:
       ~: true
