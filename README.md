@@ -22,7 +22,7 @@ Pode executar a aplicacão no modo de desenvolvimento através de:
 
 ```shell script
 ./mvnw quarkus:dev
-```g
+```
 
 Dúvidas entre em contato no Whatsapp ou E-mail:
 - (88) 9 9651 - 0001
