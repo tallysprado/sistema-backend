@@ -14,7 +14,7 @@ docker-compose -p sistema-backend up
 #### **_usuário: admin_**
 #### **_senha: admin_**
 > **_NOTA:_**  O console de administrador do Keycloak foi configurado para acessar em <https://localhost:9081>. Nesta 
-> página é possível criar novos usuários para aplicacão no menu `Users` com o real `sistema-backend` selecionado.
+> página é possível criar novos usuários para aplicacão no menu `Users` com o realm `sistema-backend` selecionado.
 
 ## 2. Executar o Quarkus em terminal separado
 
