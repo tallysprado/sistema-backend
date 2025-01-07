@@ -17,7 +17,6 @@ services:
             KEYCLOAK_ADMIN_PASSWORD: admin
             KC_SPI_THEME_WELCOME_THEME: unifor
 
-
         ports:
             - 9081:8080
         depends_on:
