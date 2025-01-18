@@ -10,7 +10,7 @@ services:
             KC_DB: postgres
             KC_DB_URL_HOST: postgres_keycloak
             KC_DB_URL_DATABASE: keycloak
-            KC_DB_PASSWORD: teste123
+            KC_DB_PASSWORD: testeok
             KC_DB_USERNAME: postgres
             KC_DB_SCHEMA: public
             KEYCLOAK_ADMIN: admin
@@ -31,7 +31,7 @@ services:
             - pgdata_keycloak:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: teste123
+            POSTGRES_PASSWORD: testeok
             POSTGRES_DB: keycloak
         healthcheck:
             test: ["CMD", "pg_isready", "-U", "postgres"]
@@ -42,8 +42,21 @@ services:
             - 5432:5432
         networks:
             - keycloak_dev_network
+
+    postgres:
+        image: postgres
+        volumes:
+            -   pgdata:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
+        ports:
+            - "5433:5432"
+
 volumes:
     pgdata_keycloak:
+    pgdata:
 networks:
     keycloak_dev_network:
         driver: bridge
