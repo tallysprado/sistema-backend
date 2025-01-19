@@ -1,0 +1,5 @@
+create table "Aluno"
+(
+    id serial primary key,
+    foreign key (id) references "Usuario" (id),
+);

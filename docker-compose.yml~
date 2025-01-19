@@ -8,7 +8,7 @@ services:
         volumes:
             - ./imports/realm-export.json:/opt/keycloak/data/import/realm-export.json
             - ./imports/unifor:/opt/keycloak/themes/unifor
-        command: start-dev --import-realm
+        command: start-dev
         image: quay.io/keycloak/keycloak:21.1.1
 
         environment:
