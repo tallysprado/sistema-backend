@@ -1,6 +1,6 @@
 quarkus:
   hibernate-orm:
-    package: org.ged
+    
     database:
       generation: drop-and-create
 #  flyway:

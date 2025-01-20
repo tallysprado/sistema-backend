@@ -4,6 +4,9 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.MediaType;
+import org.ged.disciplina.api.v1.request.DisciplinaRequest;
+import org.ged.disciplina.api.v1.response.DisciplinaResponse;
 
 @Path("/disciplina")
 public class DisciplinaController {
@@ -13,10 +16,6 @@ public class DisciplinaController {
         return "hello";
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response findByFilter(Filter filter) {
 
-    }
 
 }
