@@ -11,10 +11,13 @@ import org.ged.usuario.enums.CargoEnum;
 @NoArgsConstructor
 @Builder
 public class UsuarioRequest {
+    private Long id;
     private String nome;
     private String email;
     private String senha;
     private String cpf;
     private String rg;
     private CargoEnum cargo;
+    private String matricula;
+    private String disciplina;
 }

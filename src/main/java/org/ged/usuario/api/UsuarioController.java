@@ -1,5 +1,6 @@
 package org.ged.usuario.api;
 
+import io.netty.util.internal.StringUtil;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,17 +15,13 @@ import org.ged.usuario.enums.CargoEnum;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("/v1/usuario")
 public class UsuarioController {
 
-
-    @POST()
-    public Response findByFilter(UsuarioRequest filter) {
-        return null;
-
-    }
 
     @GET
     @Path("/{id}")
@@ -38,6 +35,51 @@ public class UsuarioController {
     public Response findAll() {
         return Response.ok(UsuarioEntity.listAll()).build();
     }
+
+    @POST
+    @Path("/filter")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response findByFilter(UsuarioRequest filter) {
+        StringBuilder query = new StringBuilder();
+        Map<String, Object> params = new HashMap<>();
+        if(!StringUtil.isNullOrEmpty(filter.getNome())){
+            query.append("nome LIKE :nome");
+            params.put("nome", "%" + filter.getNome() + "%");
+        }
+
+        if(!StringUtil.isNullOrEmpty(filter.getEmail())){
+            if (query.length() > 0) query.append(" AND ");
+
+            query.append("email LIKE :email");
+            params.put("email", "%" + filter.getEmail() + "%");
+        }
+
+        if(!StringUtil.isNullOrEmpty(filter.getCpf())){
+            if (query.length() > 0) query.append(" AND ");
+
+            query.append("cpf LIKE :cpf");
+            params.put("cpf", "%" + filter.getCpf() + "%");
+        }
+
+        if(!StringUtil.isNullOrEmpty(filter.getRg())){
+            if (query.length() > 0) query.append(" AND ");
+
+            query.append("rg LIKE :rg");
+            params.put("rg", "%" + filter.getRg() + "%");
+        }
+
+        if(filter.getCargo()!=null && !StringUtil.isNullOrEmpty(filter.getCargo().toString())){
+            if (query.length() > 0) query.append(" AND ");
+
+            query.append(" cargo = :cargo");
+            params.put("cargo", filter.getCargo().toString());
+        }
+
+        List<UsuarioEntity> result = UsuarioEntity.find(query.toString(), params).list();
+        return Response.ok(result).build();
+    }
+
 
     @POST
     @Path("/save")
