@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import jakarta.ws.rs.core.Response;
 import lombok.*;
 import org.ged.aluno.entity.AlunoEntity;
-import org.ged.aluno.entity.CoordenadorEntity;
 import org.ged.aluno.entity.ProfessorEntity;
 import org.ged.usuario.enums.CargoEnum;
 
@@ -46,8 +45,7 @@ public class UsuarioEntity extends PanacheEntityBase {
     @Transient
     private ProfessorEntity professor;
 
-    @Transient
-    private CoordenadorEntity coordenador;
+
 
     public AlunoEntity getAluno() {
         if(this.cargo.equals(CargoEnum.ALUNO)) {
@@ -61,13 +59,6 @@ public class UsuarioEntity extends PanacheEntityBase {
             this.professor = ProfessorEntity.find("usuario.id", this.id).firstResult();
         }
         return professor;
-    }
-
-    public CoordenadorEntity getCoordenador() {
-        if(this.cargo.equals(CargoEnum.COORDENADOR)) {
-            this.coordenador = CoordenadorEntity.find("usuario.id", this.id).firstResult();
-        }
-        return coordenador;
     }
 
 }
