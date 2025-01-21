@@ -32,7 +32,7 @@ public class UsuarioEntity extends PanacheEntityBase {
     @Column(name = "cpf", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
     private String cpf;
 
-    @Column(name = "rg", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(name = "rg", nullable = true, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
     private String rg;
 
     @Column(name = "cargo", nullable = false, length = 50)

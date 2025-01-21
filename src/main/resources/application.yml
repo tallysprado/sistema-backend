@@ -3,6 +3,7 @@ quarkus:
     package: org.ged
     database:
       generation: drop-and-create
+
 #  flyway:
 #    migrate-at-start: true
 
