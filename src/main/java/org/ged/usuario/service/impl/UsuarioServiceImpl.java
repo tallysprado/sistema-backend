@@ -60,6 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         StringBuilder query = new StringBuilder("SELECT u FROM UsuarioEntity u " +
                 "LEFT JOIN AlunoEntity a ON u.id = a.usuario.id " +
                 "LEFT JOIN ProfessorEntity p ON u.id = p.usuario.id " +
+                "LEFT JOIN CoordenadorEntity c ON u.id = c.usuario.id " +
                 "WHERE 1 = 1 ");
         Map<String, Object> params = new HashMap<>();
 
@@ -71,7 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 query.append("AND UPPER(p.matricula) LIKE :matricula");
                 params.put("matricula", "%" + filter.getMatricula().toUpperCase() + "%");
             } else if (filter.getMatricula().toUpperCase().startsWith("C")) {
-                query.append("AND UPPER(u.matricula) LIKE :matricula");
+                query.append("AND UPPER(c.matricula) LIKE :matricula");
                 params.put("matricula", "%" + filter.getMatricula().toUpperCase() + "%");
             }
         }
