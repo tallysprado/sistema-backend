@@ -1,0 +1,15 @@
+package org.ged.usuario.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@AllArgsConstructor
+public enum CargoEnum {
+    ALUNO(1), PROFESSOR(2), COORDENADOR(3);
+
+    private Integer cargo;
+
+
+}

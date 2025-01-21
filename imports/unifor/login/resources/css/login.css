@@ -77,6 +77,9 @@ div.kc-logo-text {
     margin: 0 auto;
     height: 200px;
     width: 250px;
+    @media (max-width: 767px) {
+        display: none;
+    }
 
 }
 

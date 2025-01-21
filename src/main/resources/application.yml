@@ -1,21 +1,28 @@
+quarkus:
+  hibernate-orm:
+    package: org.ged
+    database:
+      generation: drop-and-create
+
+#  flyway:
+#    migrate-at-start: true
+
+  datasource:
+    username: postgres
+    password: postgres
+    jdbc:
+      url: jdbc:postgresql://0.0.0.0:5433/sistema
+    db-kind: postgresql
+
+  http:
+    cors:
+      ~: true
+      origins: http://localhost:4200
+
 server:
   port: 8080
   servlet:
     context-path: /ged/api/
-
-spring:
-  profiles:
-    active: production
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://${keycloak.domain}/realms/${keycloak.realm}
-
-jwt:
-  auth:
-    converter:
-      resource-id: authenticationClientId
 
 keycloak:
   realm: sistema
@@ -25,14 +32,3 @@ keycloak:
   client: sistemaClient
   urls:
     auth: http://${keycloak.domain}
-
-quarkus:
-  oidc:
-    auth-server-url: http://${keycloak.domain}/realms/${keycloak.realm}
-    client-id: ${keycloak.client}
-    credentials:
-      secret: ${keycloak.adminClientSecret}
-  http:
-    cors:
-      ~: true
-      origins: http://localhost:4200
