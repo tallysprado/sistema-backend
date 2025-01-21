@@ -49,11 +49,11 @@ public class UsuarioController {
 
         if (!StringUtil.isNullOrEmpty(filter.getMatricula())) {
             if(filter.getMatricula().startsWith("A")){
-                query.append("AND UPPER(a.matricula) LIKE :matricula");
-                params.put("matricula", "%" + filter.getMatricula().toUpperCase() + "%");
+                query.append("AND LOWER(a.matricula) LIKE :matricula");
+                params.put("matricula", "%" + filter.getMatricula().toLowerCase() + "%");
             }else if (filter.getMatricula().startsWith("P")){
-                query.append("AND UPPER(p.matricula) LIKE :matricula");
-                params.put("matricula", "%" + filter.getMatricula().toUpperCase() + "%");
+                query.append("AND LOWER(p.matricula) LIKE :matricula");
+                params.put("matricula", "%" + filter.getMatricula().toLowerCase() + "%");
             }
         }
 
