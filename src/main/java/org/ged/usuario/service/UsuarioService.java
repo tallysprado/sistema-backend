@@ -12,4 +12,7 @@ public interface UsuarioService {
     UsuarioEntity save(UsuarioRequest request);
 
     List<UsuarioEntity> findByFilter(UsuarioRequest filter);
+
+    List<UsuarioEntity> findAll();
+
 }

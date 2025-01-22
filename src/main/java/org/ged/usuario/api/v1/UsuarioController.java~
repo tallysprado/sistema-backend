@@ -1,24 +1,15 @@
-package org.ged.usuario.api;
+package org.ged.usuario.api.v1;
 
-import io.netty.util.internal.StringUtil;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.ged.aluno.api.v1.request.AlunoRequest;
-import org.ged.aluno.api.v1.response.AlunoResponse;
-import org.ged.aluno.entity.AlunoEntity;
-import org.ged.aluno.entity.ProfessorEntity;
 import org.ged.usuario.api.v1.request.UsuarioRequest;
 import org.ged.usuario.entity.UsuarioEntity;
-import org.ged.usuario.enums.CargoEnum;
 import org.ged.usuario.service.UsuarioService;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Path("/v1/usuario")
 public class UsuarioController {
