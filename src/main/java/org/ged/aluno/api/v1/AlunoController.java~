@@ -1,6 +1,7 @@
 package org.ged.aluno.api.v1;
 
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 import org.ged.aluno.entity.AlunoEntity;
@@ -17,11 +18,14 @@ public class AlunoController {
     }
 
     @GET
-    @Path("/matricula/find/{matricula}")
+    @Path("/matricula/{matricula}")
     public Response findByMatricula(String matricula) {
         AlunoEntity aluno = AlunoEntity.find("matricula", "A" + matricula).firstResult();
         return Response.ok(aluno).build();
     }
+
+    @PUT
+    
 
 
 }

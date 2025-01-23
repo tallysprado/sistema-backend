@@ -15,4 +15,5 @@ public interface UsuarioService {
 
     List<UsuarioEntity> findAll();
 
+    UsuarioEntity update(Long id,UsuarioRequest request);
 }
