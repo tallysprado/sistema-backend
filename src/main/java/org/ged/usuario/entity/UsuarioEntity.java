@@ -9,12 +9,15 @@ import lombok.*;
 import org.ged.aluno.entity.AlunoEntity;
 import org.ged.aluno.entity.CoordenadorEntity;
 import org.ged.aluno.entity.ProfessorEntity;
+import org.ged.disciplina.entity.AlunoDisciplinaEntity;
+import org.ged.disciplina.entity.DisciplinaEntity;
 import org.ged.usuario.enums.CargoEnum;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -49,25 +52,40 @@ public class UsuarioEntity extends PanacheEntityBase {
     @Transient
     private CoordenadorEntity coordenador;
 
+    @Transient
+    private List<AlunoDisciplinaEntity> alunoDisciplinas;
+
+    @Transient
+    private List<DisciplinaEntity> disciplinas;
+
     public AlunoEntity getAluno() {
-        if(this.cargo.equals(CargoEnum.ALUNO)) {
+        if (this.cargo.equals(CargoEnum.ALUNO)) {
             this.aluno = AlunoEntity.find("usuario.id", this.id).firstResult();
         }
         return aluno;
     }
 
     public ProfessorEntity getProfessor() {
-        if(this.cargo.equals(CargoEnum.PROFESSOR)) {
+        if (this.cargo.equals(CargoEnum.PROFESSOR)) {
             this.professor = ProfessorEntity.find("usuario.id", this.id).firstResult();
         }
         return professor;
     }
 
     public CoordenadorEntity getCoordenador() {
-        if(this.cargo.equals(CargoEnum.COORDENADOR)) {
+        if (this.cargo.equals(CargoEnum.COORDENADOR)) {
             this.coordenador = CoordenadorEntity.find("usuario.id", this.id).firstResult();
         }
         return coordenador;
+    }
+
+    public List<DisciplinaEntity> getDisciplinas() {
+        if (this.cargo.equals(CargoEnum.ALUNO)) {
+            List<AlunoDisciplinaEntity> getAlunoDisciplina = AlunoDisciplinaEntity.find("aluno.id = ?1 and status = true and dataFim is null", this.id).list();
+            this.disciplinas = getAlunoDisciplina.stream().map(AlunoDisciplinaEntity::getDisciplina).toList();
+        }
+
+        return disciplinas;
     }
 
 }

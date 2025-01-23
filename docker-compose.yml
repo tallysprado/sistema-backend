@@ -1,6 +1,5 @@
 services:
     keycloak:
-
         build:
             context: services/keycloak
 
