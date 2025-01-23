@@ -1,7 +1,7 @@
-# backend
+# SistemaBackend
 #### Este projeto utiliza Java, Quarkus e Docker
-## 1. Executar imagem Keycloak no Docker
-#### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar.
+## 1. Executar imagem do Keycloak e Postgresql no Docker
+#### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar. Também possui configuração para iniciar banco de dados Postgresql.
 ```shell script
 docker-compose -p sistema-backend up
 ```
@@ -11,18 +11,25 @@ docker-compose -p sistema-backend up
 #### **_usuário: admin_**
 #### **_senha: admin_**
 
-### Com o realm sistema-backend selecionado, criar usuário no Keycloak em localhost:9081 e associar a role (coluna role-mapping) coordenador, necessário para visualizar itens de menu do sistema.
+## 2. Configurar usuário
+### Com o _realm_ sistema-backend selecionado, criar usuário no Keycloak (menu _Users_) em localhost:9081 e associar a role de coordenador (coluna _role-mapping_, após selecionar usuário criado). Esta role é necessário para visualizar itens de menu do sistema.
 
 > **_NOTA:_**  A aplicacão do frontend deve executar na URL <https://localhost:4200>.
 
-## 2. Executar o Quarkus em terminal separado
-
+## 3. Executar o Quarkus em terminal separado
 Pode executar a aplicacão no modo de desenvolvimento através de:
 
 ```shell script
 ./mvnw quarkus:dev
 ```
 
-Dúvidas entre em contato no Whatsapp ou E-mail:
+##### Configurações do banco de dados:
+- Host: 0.0.0.0:5433
+- Banco de dados: sistema
+- Usuário: postgres
+- Senha: postgres
+
+
+###### Dúvidas entre em contato no Whatsapp ou E-mail:
 - (88) 9 9651 - 0001
 - tallys.prado@gmail.com
