@@ -1,7 +1,7 @@
 # backend
 #### Este projeto utiliza Java, Quarkus e Docker
 ## 1. Executar imagem Keycloak no Docker
-#### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado
+#### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar.
 ```shell script
 docker-compose -p sistema-backend up
 ```
