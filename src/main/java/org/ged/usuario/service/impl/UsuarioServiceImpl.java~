@@ -80,7 +80,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         entity.setEmail(request.getEmail());
         entity.setCpf(request.getCpf());
         entity.setRg(request.getRg());
-        entity.persistAndFlush();
+        entity.persist();
         return entity;
     }
 

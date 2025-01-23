@@ -41,7 +41,14 @@ public class UsuarioController {
         return Response.ok(service.findByFilter(filter)).build();
     }
 
-
+    @PUT
+    @Path("/update/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response update(UsuarioRequest request, Long id) {
+        return Response.ok(service.update(id, request)).build();
+    }
 
     @POST
     @Path("/save")
