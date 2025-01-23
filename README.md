@@ -5,19 +5,15 @@
 ```shell script
 docker-compose -p sistema-backend up
 ```
-
-### Utilizar credenciais para logar no console admin Keycloak ``
-#### **_usuário: admin_**
-#### **_senha: admin_**
 > **_NOTA:_**  O console de administrador do Keycloak foi configurado para acessar em <https://localhost:9081>. Nesta 
 > página é possível criar novos usuários para aplicacão no menu `Users` com o realm `sistema-backend` selecionado.
-
+> Para acessar, utilize as credenciais abaixo:
+#### **_usuário: admin_**
+#### **_senha: admin_**
 
 ### Com o realm sistema-backend selecionado, criar usuário no Keycloak em localhost:9081 e associar a role (coluna role-mapping) coordenador, necessário para visualizar itens de menu do sistema.
 
 > **_NOTA:_**  A aplicacão do frontend deve executar na URL <https://localhost:4200>.
-
-
 
 ## 2. Executar o Quarkus em terminal separado
 
