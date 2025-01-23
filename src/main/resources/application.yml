@@ -1,4 +1,7 @@
 quarkus:
+  quarkus:
+    transaction-manager:
+      default-transaction-timeout: 300s
   hibernate-orm:
     package: org.ged
     database:
@@ -11,8 +14,12 @@ quarkus:
     username: postgres
     password: postgres
     jdbc:
+      max-size: 20
+      min-size: 3
       url: jdbc:postgresql://0.0.0.0:5433/sistema
+
     db-kind: postgresql
+
 
   http:
     cors:

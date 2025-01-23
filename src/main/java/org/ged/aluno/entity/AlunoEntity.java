@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ged.disciplina.entity.AlunoDisciplinaEntity;
 import org.ged.disciplina.entity.DisciplinaEntity;
 import org.ged.usuario.entity.UsuarioEntity;
 
@@ -27,16 +28,20 @@ public class AlunoEntity extends PanacheEntityBase {
     @GeneratedValue(generator = "alunoSeq")
     private Long id;
 
+
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_aluno_usuario"))
     @JsonBackReference
     private UsuarioEntity usuario;
-
     @Column(name = "matricula", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(255)")
     private String matricula;
 
-    @OneToMany
-    @JoinTable(name = "aluno_disciplina", joinColumns = @JoinColumn(name = "id_aluno"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+    @Transient
     private List<DisciplinaEntity> disciplinas;
 
+    public List<DisciplinaEntity> getDisciplinas() {
+        List<AlunoDisciplinaEntity> getAlunoDisciplina = AlunoDisciplinaEntity.find("aluno.id = ?1 and status = true and dataFim is null", this.id).list();
+        this.disciplinas = getAlunoDisciplina.stream().map(AlunoDisciplinaEntity::getDisciplina).toList();
+        return this.disciplinas;
+    }
 }

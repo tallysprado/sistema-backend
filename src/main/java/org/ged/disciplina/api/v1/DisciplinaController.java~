@@ -31,12 +31,10 @@ public class DisciplinaController {
 
     @POST
     @Path("/matricula")
-    @Transactional
     public Response saveMatricula(MatriculaRequest request) {
         List<AlunoDisciplinaEntity> matriculas = new ArrayList<>();
-        if (request.getIdDisciplinas() != null && !request.getIdDisciplinas().isEmpty()) {
             matriculas = matriculaService.matricular(request);
-        }
+
         return Response.ok(matriculas).build();
     }
 
