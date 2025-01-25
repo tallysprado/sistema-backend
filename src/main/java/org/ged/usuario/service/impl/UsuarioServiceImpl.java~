@@ -5,6 +5,8 @@ import jakarta.enterprise.context.RequestScoped;
 import org.ged.aluno.entity.AlunoEntity;
 import org.ged.aluno.entity.CoordenadorEntity;
 import org.ged.aluno.entity.ProfessorEntity;
+import org.ged.auth.dto.UserRegistrationRecord;
+import org.ged.auth.service.KeycloakService;
 import org.ged.usuario.api.v1.request.UsuarioRequest;
 import org.ged.usuario.entity.UsuarioEntity;
 import org.ged.usuario.enums.CargoEnum;
@@ -21,10 +23,12 @@ import java.util.Map;
 @RequestScoped
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository repository;
 
-    public UsuarioServiceImpl(UsuarioRepository repository) {
+    private final UsuarioRepository repository;
+    private final KeycloakService keycloakService;
+    public UsuarioServiceImpl(UsuarioRepository repository, KeycloakService keycloakService) {
         this.repository = repository;
+        this.keycloakService = keycloakService;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .nome(request.getNome())
                 .build();
         UsuarioEntity.persist(usuario);
+        String matricula = null;
         if (usuario.getCargo().equals(CargoEnum.ALUNO)) {
             AlunoEntity aluno = AlunoEntity
                     .builder()
@@ -45,6 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                     .matricula(generateMatricula(usuario.getId(), CargoEnum.ALUNO))
                     .build();
             AlunoEntity.persist(aluno);
+            matricula = aluno.getMatricula();
         } else if (usuario.getCargo().equals(CargoEnum.PROFESSOR)) {
             ProfessorEntity professor = ProfessorEntity
                     .builder()
@@ -52,6 +58,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                     .matricula(generateMatricula(usuario.getId(), CargoEnum.PROFESSOR))
                     .build();
             ProfessorEntity.persist(professor);
+            matricula = professor.getMatricula();
         } else if (usuario.getCargo().equals(CargoEnum.COORDENADOR)) {
             CoordenadorEntity coordenador = CoordenadorEntity
                     .builder()
@@ -59,6 +66,14 @@ public class UsuarioServiceImpl implements UsuarioService {
                     .matricula(generateMatricula(usuario.getId(), CargoEnum.COORDENADOR))
                     .build();
             CoordenadorEntity.persist(coordenador);
+            matricula = coordenador.getMatricula();
+        }
+        if(matricula!=null){
+            this.keycloakService.createUser(UserRegistrationRecord.builder().username(matricula)
+                    .password("123")
+                            .firstName(request.getNome().split(" ")[0])
+
+                    .email(request.getEmail()).build());
         }
         return usuario;
     }
@@ -80,7 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         entity.setEmail(request.getEmail());
         entity.setCpf(request.getCpf());
         entity.setRg(request.getRg());
-        entity.persist();
+        entity.persistAndFlush();
         return entity;
     }
 

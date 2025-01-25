@@ -1,7 +1,26 @@
 quarkus:
-  quarkus:
-    transaction-manager:
-      default-transaction-timeout: 300s
+  transaction-manager:
+    default-transaction-timeout: 300s
+  debug:
+    print-startup-times: true
+  log:
+    console:
+      level: ALL
+  http:
+    cors:
+      headers:
+        Access-Control-Allow-Origin: true
+        Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+        Access-Control-Allow-Headers: accept, content-type, x-requested-with, authorization
+        Access-Control-Allow-Content-Type: application/json
+        Access-Control-Allow-Credentials: true
+
+      ~: true
+      origins:
+       - http://localhost:4200
+       - http://localhost:8080
+       - http://localhost:9081
+
   hibernate-orm:
     package: org.ged
     database:
@@ -20,22 +39,26 @@ quarkus:
 
     db-kind: postgresql
 
-
-  http:
-    cors:
-      ~: true
-      origins: http://localhost:4200
-
 server:
   port: 8080
   servlet:
     context-path: /ged/api/
 
+
+
 keycloak:
-  realm: sistema
+  policy-enforcer:
+    enabled: true
+
+
+  realm: sistema-backend
   domain: localhost:9081
-  adminClientId: admin-cli
-  adminClientSecret: lllx08MlhGbZLpejvJ7vgbzutxO04WmX
-  client: sistemaClient
+  adminClientId: backend
+  adminClientSecret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+  client: backend
+  user: tallys
+  password: 123
   urls:
     auth: http://${keycloak.domain}
+tls:
+  verification: none
