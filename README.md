@@ -12,6 +12,10 @@ docker-compose -p sistema-backend up -d
 #### **_senha: admin_**
 
 ## 2. Configurar usuário
+#### Utilize as credenciais:
+#### Usuário: universidade
+#### Senha: 123
+#### ou configure seguindo os passos abaixo:
 ### Com o _realm_ sistema-backend selecionado, criar usuário no Keycloak (menu _Users_) em localhost:9081 e associar a role de coordenador (coluna _role-mapping_, após selecionar usuário criado). Esta role é necessário para visualizar itens de menu do sistema.
 
 > **_NOTA:_**  A aplicacão do frontend deve executar na URL <https://localhost:4200>.
