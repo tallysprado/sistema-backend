@@ -8,7 +8,7 @@ services:
             - ./imports/realm-export.json:/opt/keycloak/data/import/realm-export.json
             - ./imports/unifor:/opt/keycloak/themes/unifor
         command: start-dev --import-realm
-        image: quay.io/keycloak/keycloak:21.1.1
+        image: quay.io/keycloak/keycloak:26.1.0
 
         environment:
             KC_DB: postgres

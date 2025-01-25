@@ -36,6 +36,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-keycloak-admin-rest-client</artifactId>
+            <version>22.0.0</version>
         </dependency>
 
 
