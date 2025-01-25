@@ -1,0 +1,67 @@
+services:
+    keycloak:
+        build:
+            context: services/keycloak
+
+        container_name: keycloak
+        volumes:
+            - ./imports/:/opt/keycloak/data/import/
+            - ./imports/unifor:/opt/keycloak/themes/unifor
+        command: start-dev --import-realm --import-users
+        image: quay.io/keycloak/keycloak:26.1.0
+
+        environment:
+            KC_DB: postgres
+            KC_DB_URL_HOST: postgres_keycloak
+            KC_DB_URL_DATABASE: keycloak
+            KC_DB_PASSWORD: postgres
+            KC_DB_USERNAME: postgres
+            KC_DB_SCHEMA: public
+            KEYCLOAK_ADMIN: admin
+            KEYCLOAK_ADMIN_PASSWORD: admin
+            KC_SPI_THEME_WELCOME_THEME: unifor
+
+
+        ports:
+            - 9081:8080
+        depends_on:
+            postgres_keycloak:
+                condition: service_healthy
+        networks:
+            - keycloak_dev_network
+    postgres_keycloak:
+        image: postgres
+        command: postgres -c 'max_connections=200'
+        volumes:
+            - pgdata_keycloak:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: keycloak
+        healthcheck:
+            test: ["CMD", "pg_isready", "-U", "postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        ports:
+            - 5432:5432
+        networks:
+            - keycloak_dev_network
+
+    postgres:
+        image: postgres
+        volumes:
+            -   pgdata:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: sistema
+        ports:
+            - "5433:5432"
+
+volumes:
+    pgdata_keycloak:
+    pgdata:
+networks:
+    keycloak_dev_network:
+        driver: bridge
