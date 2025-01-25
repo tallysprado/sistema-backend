@@ -15,7 +15,7 @@ docker-compose -p sistema-backend up -d
 ### Para efetuar login na aplicacão, existe uma credencial já predefinida com ROLE_COORDENADOR:
 #### Usuário: __universidade__
 #### Senha: __123__
-#### Os usuários criados dentro do sistema-frontend podem logar na aplicacão utilizando a matricula e a senha "123".
+#### Os usuários criados dentro do sistema-frontend podem logar na aplicacão utilizando a matricula gerada e a senha "123".
 #### Mas se preferir, configure seguindo os passos abaixo:
 ### Com o _realm_ sistema-backend selecionado, criar usuário no Keycloak (menu _Users_) em localhost:9081 e associar a role de coordenador (coluna _role-mapping_, após selecionar usuário criado). Esta role é necessário para visualizar itens de menu do sistema.
 
