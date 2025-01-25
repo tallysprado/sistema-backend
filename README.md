@@ -3,7 +3,7 @@
 ## 1. Executar imagem do Keycloak e Postgresql no Docker
 #### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar. Também possui configuração para iniciar banco de dados Postgresql.
 ```shell script
-docker-compose -p sistema-backend up
+docker-compose -p sistema-backend up -d
 ```
 > **_NOTA:_**  O console de administrador do Keycloak foi configurado para acessar em <https://localhost:9081>. Nesta 
 > página é possível criar novos usuários para aplicacão no menu `Users` com o realm `sistema-backend` selecionado.
