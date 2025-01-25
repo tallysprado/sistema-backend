@@ -530,12 +530,7 @@
       ],
       "realmRoles": [
         "coordenador"
-      ],
-      "clientRoles": {
-        "sistema": [
-          "coordenador"
-        ]
-      }
+      ]
     },
     {
       "id": "0b363282-4e30-4385-b193-6c26ec12d944",
