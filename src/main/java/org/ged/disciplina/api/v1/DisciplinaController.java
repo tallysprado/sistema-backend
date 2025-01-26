@@ -29,21 +29,6 @@ public class DisciplinaController {
         return Response.ok(matriculaService.findAllDisciplinas()).build();
     }
 
-    @POST
-    @Path("/matricula")
-    @Transactional
-    public Response saveMatricula(MatriculaRequest request) {
-        List<AlunoDisciplinaEntity> matriculas = new ArrayList<>();
-            matriculas = matriculaService.matricular(request);
-
-        return Response.ok(matriculas).build();
-    }
-
-    @GET
-    @Path("/matriculas/{idAluno}")
-    public Response getMatriculas(Long idAluno) {
-        return Response.ok(matriculaService.findAllDisciplinasMatriculadas(idAluno)).build();
-    }
 
 
 }
