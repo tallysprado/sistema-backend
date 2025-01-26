@@ -34,8 +34,10 @@ Pode executar a aplicacão no modo de desenvolvimento através de:
 - Usuário: postgres
 - Senha: postgres
 
-#### Foi utilizado _Repository Design Pattern_
-#### Testes de cobertura da classe UsuarioController
+Sobre:
+- Foi utilizado _Repository Design Pattern_
+- Testes de cobertura da classe UsuarioController
+- Rotas protegidas por papéis (coordenador ou aluno)
 
 
 ###### Dúvidas entre em contato no Whatsapp ou E-mail:
