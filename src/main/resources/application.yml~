@@ -35,8 +35,7 @@ quarkus:
       headers:
         Access-Control-Allow-Origin: true
         Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-        Access-Control-Allow-Headers: accept, content-type, x-requested-with, authorization, x-custom
-        expose-headers: Content-Disposition
+        Access-Control-Allow-Headers: accept, content-type, x-requested-with, authorization
         Access-Control-Allow-Content-Type: application/json
         Access-Control-Allow-Credentials: true
 

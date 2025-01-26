@@ -41,29 +41,5 @@ public class UsuarioController {
         return Response.ok(service.findByFilter(filter)).build();
     }
 
-    @PUT
-    @Path("/update/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Response update(UsuarioRequest request, Long id) {
-        return Response.ok(service.update(id, request)).build();
-    }
-
-    @POST
-    @Path("/save")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Response save(UsuarioRequest request) {
-        UsuarioEntity usuario = service.save(request);
-        if (usuario.isPersistent()) {
-            return Response.created(URI.create("/v1/usuario/" + usuario.getId())).build();
-        } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-    }
-
-
 
 }
