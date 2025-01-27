@@ -87,6 +87,11 @@ div.kc-logo-text {
     width: 25rem;
     margin: 0 auto;
 }
+@media (max-width: 640px) {
+    div.kc-logo-text {
+        display: none;
+    }
+}
 
 div.kc-logo-text span {
     display: none;
