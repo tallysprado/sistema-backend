@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequestScoped
@@ -70,7 +71,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         if(usuario.isPersistent()){
             if(matricula!=null){
-                this.keycloakService.createUser(UserRegistrationRecord.builder().username(matricula)
+                this.keycloakService.
+                        createUser(UserRegistrationRecord.builder().username(matricula)
                         .password("123")
                         .firstName(request.getNome().split(" ")[0])
 
@@ -99,6 +101,40 @@ public class UsuarioServiceImpl implements UsuarioService {
         entity.setRg(request.getRg());
         entity.persistAndFlush();
         return entity;
+    }
+
+    @Override
+    public void delete(Long matricula) {
+
+        UsuarioEntity entity = UsuarioEntity.findById(matricula);
+        String mat = null;
+        if(entity.getAluno()!=null){
+            mat = entity.getAluno().getMatricula();
+            entity.getAluno().delete();
+        }
+        if(entity.getProfessor()!=null){
+            mat = entity.getProfessor().getMatricula();
+            entity.getProfessor().delete();
+        }
+        if(entity.getCoordenador()!=null){
+            mat = entity.getCoordenador().getMatricula();
+            entity.getCoordenador().delete();
+        }
+        entity.delete();
+        if(mat!=null){
+            keycloakService.deleteUser(mat);
+        }
+    }
+
+    private String getMatricula(UsuarioEntity entity){
+        if(entity.getCargo().equals(CargoEnum.ALUNO)){
+            return entity.getAluno().getMatricula();
+        }else if(entity.getCargo().equals(CargoEnum.PROFESSOR)){
+            return entity.getProfessor().getMatricula();
+        }else if(entity.getCargo().equals(CargoEnum.COORDENADOR)){
+            return entity.getCoordenador().getMatricula();
+        }
+        return null;
     }
 
     private String generateMatricula(Long userId, CargoEnum cargo) {

@@ -1,5 +1,6 @@
 package org.ged.usuario.api.v1;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -28,6 +29,7 @@ public class UsuarioController {
 
     @GET
     @Path("/all")
+    @RolesAllowed({"coordenador"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         return Response.ok(service.findAll()).build();

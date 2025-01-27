@@ -3,6 +3,7 @@ package org.ged.auth.service;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.core.Response;
 import org.ged.auth.dto.UserRegistrationRecord;
@@ -20,7 +21,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 @Service
-@RequestScoped
+@ApplicationScoped
 public class KeycloakServiceImpl implements KeycloakService {
     @Value("${keycloak.realm}")
     private String realm;
@@ -61,6 +62,26 @@ public class KeycloakServiceImpl implements KeycloakService {
 
         return null;
     }
+
+    @Override
+    public void deleteUser(String username) {
+        UsersResource usersResource = getUsersResource();
+
+        List<UserRepresentation> users = usersResource.searchByUsername(username, true);
+
+        if (CollectionUtils.isEmpty(users)) {
+            throw new IllegalArgumentException("Usuário não encontrado: " + username);
+        }
+
+        String userId = users.get(0).getId();
+        try {
+            usersResource.get(userId).remove();
+            System.out.println("Usuário deletado com sucesso: " + username);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar o usuário: " + username, e);
+        }
+    }
+
 
     private void assignRoles(String userId, String username) {
         RealmResource realmResource = keycloak.realm(realm);
