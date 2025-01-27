@@ -30,6 +30,17 @@ public class ProtectedUsuarioController {
         return Response.ok(service.update(id, request)).build();
     }
 
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"coordenador"})
+    @Transactional
+    public Response delete(Long id) {
+        service.delete(id);
+        return Response.ok(id).build();
+    }
+
     @POST
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)

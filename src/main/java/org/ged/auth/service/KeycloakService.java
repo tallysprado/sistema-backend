@@ -6,5 +6,6 @@ public interface KeycloakService {
 
     UserRegistrationRecord createUser(UserRegistrationRecord userRegistrationRecord);
     void emailVerification(String userId);
+    void deleteUser(String username);
 
 }
