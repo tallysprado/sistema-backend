@@ -77,17 +77,16 @@ public class KeycloakServiceImpl implements KeycloakService {
         if (CollectionUtils.isEmpty(users)) {
             LOGGER.info("Usuário nao encontrado: " + username);
 //            throw new IllegalArgumentException("Usuário não encontrado: " + username);
-        }else{
-            String userId = users.get(0).getId();
-            try {
-                usersResource.get(userId).remove();
-                System.out.println("Usuário deletado com sucesso: " + username);
-            } catch (Exception e) {
-                LOGGER.info("Erro ao deletar o usuário: " + username);
-//            throw new RuntimeException("Erro ao deletar o usuário: " + username, e);
-            }
         }
 
+        String userId = users.get(0).getId();
+        try {
+            usersResource.get(userId).remove();
+            System.out.println("Usuário deletado com sucesso: " + username);
+        } catch (Exception e) {
+            LOGGER.info("Erro ao deletar o usuário: " + username);
+//            throw new RuntimeException("Erro ao deletar o usuário: " + username, e);
+        }
     }
 
 
