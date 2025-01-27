@@ -38,6 +38,8 @@ Sobre:
 - Foi utilizado _Repository Design Pattern_
 - Testes de cobertura da classe UsuarioController
 - Rotas protegidas por papéis (coordenador ou aluno)
+- O uso de constraints é didático apenas para utilizar como exemplo no Exception Handler.
+  A depender da quantidade de dados é preferível uma consulta antes ao invés de usar constraint unique para colunas CPF e nome.
 
 
 ###### Dúvidas entre em contato no Whatsapp ou E-mail:
