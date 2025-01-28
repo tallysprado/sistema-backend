@@ -48,7 +48,7 @@ class UsuarioControllerTest {
     }
 
     /**
-     * Classe para testar abordagem do padrão active record
+     * Testa o método findAll
      */
     @Test
     @TestSecurity(user = "testUser", roles = {"coordenador"})
