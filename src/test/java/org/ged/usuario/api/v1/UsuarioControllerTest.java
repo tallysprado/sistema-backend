@@ -2,6 +2,7 @@ package org.ged.usuario.api.v1;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.ged.aluno.entity.AlunoEntity;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +51,30 @@ class UsuarioControllerTest {
      * Classe para testar abordagem do padrão active record
      */
     @Test
+    @TestSecurity(user = "testUser", roles = {"coordenador"})
     void findAll() {
-        List<UsuarioEntity> list = new ArrayList<>();
-        list.add(usuario);
-        Mockito.when(service.findAll()).thenReturn(list);
+        AlunoEntity alunoMock = Mockito.mock(AlunoEntity.class);
+        Mockito.when(alunoMock.getMatricula()).thenReturn("A12345");
+
+        UsuarioEntity usuarioMock = Mockito.mock(UsuarioEntity.class);
+        Mockito.when(usuarioMock.getNome()).thenReturn("Nome");
+        Mockito.when(usuarioMock.getEmail()).thenReturn("Email");
+        Mockito.when(usuarioMock.getCpf()).thenReturn("Cpf");
+        Mockito.when(usuarioMock.getRg()).thenReturn("Rg");
+        Mockito.when(usuarioMock.getCargo()).thenReturn(CargoEnum.ALUNO);
+        Mockito.when(usuarioMock.getId()).thenReturn(1L);
+        Mockito.when(usuarioMock.getAluno()).thenReturn(alunoMock);
+
+        List<UsuarioEntity> mockList = new ArrayList<>();
+        mockList.add(usuarioMock);
+        Mockito.when(service.findAll()).thenReturn(mockList);
 
         Response response = controller.findAll();
 
         assertNotNull(response);
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertNotNull(response.getEntity());
+
         List<UsuarioEntity> entity = (List<UsuarioEntity>) response.getEntity();
         assertFalse(entity.isEmpty());
         assertEquals("Nome", entity.get(0).getNome());
@@ -68,7 +84,6 @@ class UsuarioControllerTest {
         assertEquals(CargoEnum.ALUNO, entity.get(0).getCargo());
         assertEquals(1L, entity.get(0).getId());
         assertEquals('A', entity.get(0).getAluno().getMatricula().charAt(0));
-
     }
 
 
