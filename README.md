@@ -1,4 +1,8 @@
 # SistemaBackend
+
+
+## A conteinerização da aplicação está em andamento na branch docker/card01. Objetivo de reunir todos os projetos num único container sendo executado pelo compose no backend. Enquanto isto a aplicação deve ser executada manualmente.
+
 #### Este projeto utiliza Java, Quarkus e Docker
 ## 1. Executar imagem do Keycloak e Postgresql no Docker
 #### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar. Também possui configuração para iniciar banco de dados Postgresql.
