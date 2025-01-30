@@ -1,15 +1,24 @@
 # SistemaBackend
 
 ## Para rodar a aplicação localmente, siga os passos a seguir:
-- Garantir que não tenha nenhum container em execução fora o do ambiente de desenvolvimento do repositório sistema-backend.
-  - Neste repositório, deve-se iniciar o Postgres e Keycloak em ambiente local/desenvolvimento através de:
-    - ```shell script
-      docker-compose -f docker-compose.dev.yml up
-      ```
+- Se você estiver no diretório do container, entre na raiz de sistema-backend, primeiro garantir que não há nenhuma imagem da configuração de testes rodando:
+```shell script
+docker-compose down -v
+```
+- Entrar no diretório raiz do sistema-backend:
+```shell script
+cd sistema-backend
+```
+- Neste repositório, deve-se iniciar o Postgres e Keycloak em ambiente local/desenvolvimento através do comando abaixo. No repositório acima da pasta _container_, o docker-compose tem a configuração criar a imagem Angular e Quarkus, este inclui apenas Keycloak e PostgreSQL.
+```shell script
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+
 - E então executar o projeto Quarkus no em ambiente de desenvolvimento/local:
-  - ```shell script
-      .\mvnw quarkus:dev -Pdev
-    ```
+```shell script
+.\mvnw quarkus:dev -Pdev
+```
 
 ### Estes passos são suficientes para rodar o projeto Quarkus localmente.
 #### Acesse através da url <http://localhost:8081> utilizando as credenciais
