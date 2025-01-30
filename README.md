@@ -1,46 +1,67 @@
 # SistemaBackend
-#### Este projeto utiliza Java, Quarkus e Docker
-## 1. Executar imagem do Keycloak e Postgresql no Docker
-#### O arquivo `docker-compose.yml` possui configuracão para importar o tema customizado, roles, realm e client que o front-end irá acessar. Também possui configuração para iniciar banco de dados Postgresql.
+#### Esta _branch_ contém a configuracão necessária para rodar o Angular, Quarkus, Keycloak e Postgres todos num único container. Para isto, siga os passos a seguir:
+
+#### 1. Efetuar o clone dos dois projetos numa mesma pasta.
+##### A disposicão dos dois repositórios deve estar lado a lado no mesmo diretório.
+pasta_qualquer_na_area_de_trabalho/
+├── sistema-frontend/
+│   ├── src/
+│   ├── package.json
+│   └── ...
+├── sistema-backend/
+│   ├── src/
+│   ├── pom.xml
+│   └── ...
+#### 2. Abra o terminal dentro do diretório 'sistema-backend' e faca a compilacão do projeto quarkus através de:
+```shell script
+.\mvnw package -DskipTests
+```
+#### 3. No mesmo terminal, execute o docker-compose:
 ```shell script
 docker-compose -p sistema-backend up -d
 ```
-> **_NOTA:_**  O console de administrador do Keycloak foi configurado para acessar em <https://localhost:9081>. Nesta 
-> página é possível criar novos usuários para aplicacão no menu `Users` com o realm `sistema-backend` selecionado.
-> Para acessar, utilize as credenciais abaixo:
-#### **_usuário: admin_**
-#### **_senha: admin_**
 
-## 2. Configurar usuário
-### Para efetuar login na aplicacão, existe uma credencial já predefinida com ROLE_COORDENADOR:
+### Estes passos são suficientes para rodar o projeto dentro de um único container.
+#### Acesse a aplicacão através da url <http://127.0.0.1:4200> utilizando as credenciais
 #### Usuário: __universidade__
 #### Senha: __123__
-#### Os usuários criados dentro do sistema-frontend podem logar na aplicacão utilizando a matricula gerada e a senha "123".
-#### Mas se preferir, configure seguindo os passos abaixo:
-### Com o _realm_ sistema-backend selecionado, criar usuário no Keycloak (menu _Users_) em localhost:9081 e associar a role de coordenador (coluna _role-mapping_, após selecionar usuário criado). Esta role é necessário para visualizar itens de menu do sistema.
 
-> **_NOTA:_**  A aplicacão do frontend deve executar na URL <https://localhost:4200>.
+#### O console de administrador do Keycloak é acessado em <http://127.0.0.1:8080>
 
-## 3. Executar o Quarkus em terminal separado
-Pode executar a aplicacão no modo de desenvolvimento através de:
-
-```shell script
-./mvnw quarkus:dev
-```
-
-##### Configurações do banco de dados:
+##### Configuração do banco de dados:
 - Host: 0.0.0.0:5433
 - Banco de dados: sistema
 - Usuário: postgres
 - Senha: postgres
 
-Sobre:
-- Foi utilizado _Repository Design Pattern_
-- Testes de cobertura da classe UsuarioController
-- Rotas protegidas por papéis (coordenador ou aluno)
-- O uso de constraints é didático apenas para utilizar como exemplo no Exception Handler.
-  A depender da quantidade de dados é preferível uma consulta antes ao invés de usar constraint unique para colunas CPF e nome.
-
+#### Cenários de teste:
+- Menu "Usuários -> Criar": (criar usuários para acessar a aplicação através da matrícula e senha 123)
+    - Nome, Cargo e CPF são dados obrigatórios e exclusivos (validação backend para exception de constraint)
+    - A depender do cargo, será criado uma entidade Aluno, Professor ou Coordenador e será associada 
+    à entidade usuário.
+    - Enter salva os dados.
+    - Responsividade dos campos (4 colunas telas largas, 1 coluna disp. mobile)
+    - Usuários criados nessa tela podem acessar a aplicação de acordo com a role definida em 'cargo'. Utilizar matrícula (ver tela de consulta) e senha "123".
+- Menu "Usuários -> Consultar": 
+    - Testar login na aplicação utilizando matrícula e senha "123"  
+    - Expandir a linha mostra disciplinas matriculadas.
+    - Responsividade mobile para filtros e tabela (é exibido cards com as colunas no lugar das linhas na visualização
+    em dispositivos móveis).
+    - A edição do usuário reaproveita a tela de criação.
+    - O filtro da matrícula é um inner join a depender do tipo se é Aluno, Professor ou Coordenador
+    - Possibilita excluir o usuário da base e do Keycloak (futuramente deve-se habilitar este botão para roles específicas apenas)
+- Menu "Matrícula - Aluno": (relacionar disciplina x usuário)
+    - É listado apenas entidade Aluno.
+    - Nome é auto-complete com os alunos cadastrados, ao selecionar deve aparecer a lista de disciplinas disponíveis
+    e as matriculadas. Selecionar e salvar vai atualizar os dados da linha expandível da tela de filtros.
+    - Campo de filtro "matrícula" ainda está em construção :construction:
+    - Responsividade da tabela, para dispositivos mobile, ainda em construção :construction:
+- Menu da Topbar abrirá "por cima" do conteúdo em dispositivos mobile, e "empurrará" o conteúdo telas maiores.
+- Tela de Login foi customizada direto no .ftl e não exibe logo marca em dispositivos móveis, apenas em telas maiores.
+- As rotas estão protegidas pelo AuthGuard do Keycloak. Existe duas _roles_ importadas na configuração inicial, 
+ROLE_COORDENADOR e ROLE_ALUNO. Deve-se considerar no teste, atribuir diferentes papéis ao usuário e verificar a página
+de acesso negado ao tentar acessar uma rota não autorizada. O papel de coordenador tem mais funcionalidades implementadas,
+porém vale testar o acesso à rota <http://localhost:4200/periodo/create> sem ter o papel 'aluno' atribuído e verificar a página de _forbidden access_.
 
 ###### Dúvidas entre em contato no Whatsapp ou E-mail:
 - (88) 9 9651 - 0001
