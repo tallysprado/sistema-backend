@@ -1,7 +1,7 @@
 # SistemaBackend
 
 ## Para rodar a aplicação localmente, siga os passos a seguir:
-- Se você estiver no diretório do container, entre na raiz de sistema-backend, primeiro garantir que não há nenhuma imagem da configuração de testes rodando:
+- Se você estiver no diretório do container, primeiro deve garantir que a imagem do Angular e Quarkus não estejam em execução:
 ```shell script
 docker-compose down -v
 ```
