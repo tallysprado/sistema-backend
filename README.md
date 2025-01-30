@@ -1,3 +1,6 @@
+# A leitura desta documentacão não é necessária se o projeto for iniciado pelo container, veja em
+# <https://github.com/tallysprado/sistema-container> 
+
 # SistemaBackend
 
 
