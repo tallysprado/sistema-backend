@@ -1,7 +1,9 @@
 # SistemaBackend
 
 
-## A conteinerização da aplicação está na branch docker/card01. Faca o checkout para esta branch e leia a documentacao para rodar todos os projetos em um unico container.
+## A conteinerização da aplicação está na branch docker/card01. Faca o checkout para esta branch e leia a documentacao nela para rodar todos os projetos em um unico container.
+
+## Caso decida iniciar o projeto por um único container, ignore esta documentacao e prossiga com a que tem em docker/card01.
 
 #### Este projeto utiliza Java, Quarkus e Docker
 ## 1. Executar imagem do Keycloak e Postgresql no Docker
