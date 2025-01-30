@@ -2,7 +2,7 @@ quarkus:
   hibernate-orm:
     package: org.ged
     database:
-      generation: drop-and-create
+      generation: create
   server:
     port: 8081
     servlet:

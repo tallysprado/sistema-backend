@@ -18,10 +18,10 @@ public class DisciplinaEntity {
     @GeneratedValue(generator = "disciplinaSeq")
     private Long id;
 
-    @Column(name = "desc_nm", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(name = "disc_nm", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
     private String nome;
 
-    @Column(name = "desc_dsc", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(name = "disc_dsc", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String descricao;
 
     @Column(name = "nr_hr", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")

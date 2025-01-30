@@ -12,7 +12,7 @@ quarkus:
     auth-server-url: http://keycloak:8080/realms/sistema-backend
     client-id: backend
     credentials:
-      secret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+      secret: xFRWC0fbQakBSPYUrjVTsdobn90cTLpi
     connection-timeout: 20s
     token:
       issuer: http://127.0.0.1:8080/realms/sistema-backend
@@ -75,7 +75,7 @@ keycloak:
   realm: sistema-backend
   domain: keycloak:8080
   adminClientId: backend
-  adminClientSecret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+  adminClientSecret: xFRWC0fbQakBSPYUrjVTsdobn90cTLpi
   client: backend
   user: tallys
   password: 123
