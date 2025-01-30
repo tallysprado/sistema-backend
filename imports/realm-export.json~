@@ -335,7 +335,48 @@
           "id": "99fcf1ef-3ef1-4ff6-b82b-76c8677375c0",
           "name": "coordenador",
           "description": "",
-          "composite": false,
+          "composite": true,
+          "composites": {
+            "client": {
+              "realm-management": [
+                "realm-admin",
+                "view-identity-providers",
+                "view-clients",
+                "impersonation",
+                "query-users",
+                "view-authorization",
+                "manage-clients",
+                "manage-realm",
+                "view-events",
+                "query-groups",
+                "view-realm",
+                "query-clients",
+                "manage-identity-providers",
+                "query-realms",
+                "view-users",
+                "manage-users",
+                "manage-authorization",
+                "create-client",
+                "manage-events"
+              ],
+              "backend": [
+                "coordenador"
+              ],
+              "broker": [
+                "read-token"
+              ],
+              "account": [
+                "view-groups",
+                "manage-consent",
+                "view-applications",
+                "delete-account",
+                "view-profile",
+                "manage-account",
+                "manage-account-links",
+                "view-consent"
+              ]
+            }
+          },
           "clientRole": true,
           "containerId": "29bc6a9c-1604-4887-b935-40bc6adb42b6",
           "attributes": {}
@@ -360,7 +401,58 @@
         }
       ],
       "admin-cli": [],
-      "backend": [],
+      "backend": [
+        {
+          "id": "69401978-5456-468c-9254-805d23c4dde3",
+          "name": "coordenador",
+          "description": "",
+          "composite": true,
+          "composites": {
+            "client": {
+              "realm-management": [
+                "realm-admin",
+                "view-identity-providers",
+                "view-clients",
+                "impersonation",
+                "query-users",
+                "view-authorization",
+                "manage-clients",
+                "manage-realm",
+                "view-events",
+                "query-groups",
+                "view-realm",
+                "query-clients",
+                "manage-identity-providers",
+                "query-realms",
+                "view-users",
+                "manage-users",
+                "manage-authorization",
+                "create-client",
+                "manage-events"
+              ],
+              "sistema": [
+                "coordenador"
+              ],
+              "broker": [
+                "read-token"
+              ],
+              "account": [
+                "view-groups",
+                "manage-consent",
+                "view-applications",
+                "delete-account",
+                "view-profile",
+                "manage-account",
+                "manage-account-links",
+                "view-consent"
+              ]
+            }
+          },
+          "clientRole": true,
+          "containerId": "5d266e34-8d98-4290-8b55-1650fe3d3c5d",
+          "attributes": {}
+        }
+      ],
       "account-console": [],
       "broker": [
         {
@@ -427,6 +519,59 @@
           "composites": {
             "client": {
               "account": [
+                "view-consent"
+              ]
+            }
+          },
+          "clientRole": true,
+          "containerId": "84d5d805-1fae-4eed-a437-cbc37bff7411",
+          "attributes": {}
+        },
+        {
+          "id": "a8caa4f0-f8c2-4842-8c4a-cc48159db211",
+          "name": "coordenador",
+          "description": "",
+          "composite": true,
+          "composites": {
+            "client": {
+              "realm-management": [
+                "realm-admin",
+                "view-identity-providers",
+                "view-clients",
+                "impersonation",
+                "query-users",
+                "view-authorization",
+                "manage-clients",
+                "manage-realm",
+                "view-events",
+                "query-groups",
+                "view-realm",
+                "query-clients",
+                "manage-identity-providers",
+                "query-realms",
+                "view-users",
+                "manage-users",
+                "manage-authorization",
+                "create-client",
+                "manage-events"
+              ],
+              "sistema": [
+                "coordenador"
+              ],
+              "backend": [
+                "coordenador"
+              ],
+              "broker": [
+                "read-token"
+              ],
+              "account": [
+                "view-groups",
+                "manage-consent",
+                "view-applications",
+                "delete-account",
+                "view-profile",
+                "manage-account",
+                "manage-account-links",
                 "view-consent"
               ]
             }
@@ -516,23 +661,6 @@
   "webAuthnPolicyPasswordlessExtraOrigins": [],
   "users": [
     {
-      "username": "universidade",
-      "enabled": true,
-      "emailVerified": false,
-      "firstName": "UNIFOR",
-      "lastName": "Fortaleza",
-      "email": "tallys.prado@gmail.com",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "123"
-        }
-      ],
-      "realmRoles": [
-        "coordenador"
-      ]
-    },
-    {
       "id": "0b363282-4e30-4385-b193-6c26ec12d944",
       "username": "service-account-admin-cli",
       "emailVerified": false,
@@ -583,6 +711,12 @@
           "create-client",
           "manage-events"
         ],
+        "sistema": [
+          "coordenador"
+        ],
+        "backend": [
+          "coordenador"
+        ],
         "broker": [
           "read-token"
         ],
@@ -625,16 +759,28 @@
       "id": "84d5d805-1fae-4eed-a437-cbc37bff7411",
       "clientId": "account",
       "name": "${client_account}",
+      "description": "",
       "rootUrl": "${authBaseUrl}",
+      "adminUrl": "",
       "baseUrl": "/realms/sistema-backend/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
+        "http://127.0.0.1:4200",
+        "*",
+        "http://frontend:4200",
+        "http://localhost:4200",
         "/realms/sistema-backend/account/*"
       ],
-      "webOrigins": [],
+      "webOrigins": [
+        "http://127.0.0.1:4200",
+        "*",
+        "http://frontend:4200",
+        "http://localhost:4200",
+        "http://0.0.0.0:4200"
+      ],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
@@ -647,7 +793,12 @@
       "protocol": "openid-connect",
       "attributes": {
         "realm_client": "false",
-        "post.logout.redirect.uris": "+"
+        "oidc.ciba.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
+        "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -843,12 +994,24 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT",
+      "secret": "**********",
       "redirectUris": [
-        "*"
+        "*",
+        "http://127.0.0.1:8081",
+        "http://0.0.0.0:8081",
+        "http://frontend:4200",
+        "http://localhost:4200",
+        "http://0.0.0.0:4200",
+        "http://backend:8081"
       ],
       "webOrigins": [
-        "*"
+        "http://127.0.0.1:4200",
+        "*",
+        "http://127.0.0.1:8081",
+        "http://0.0.0.0:8081",
+        "http://frontend:4200",
+        "http://localhost:4200",
+        "http://backend:8081"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -863,10 +1026,12 @@
       "attributes": {
         "realm_client": "false",
         "oidc.ciba.grant.enabled": "false",
-        "client.secret.creation.time": "1737780249",
+        "client.secret.creation.time": "1738205269",
         "backchannel.logout.session.required": "true",
         "post.logout.redirect.uris": "+",
+        "frontchannel.logout.session.required": "true",
         "oauth2.device.authorization.grant.enabled": "false",
+        "display.on.consent.screen": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
@@ -1052,7 +1217,11 @@
         "*"
       ],
       "webOrigins": [
-        "*"
+        "http://127.0.0.1:4200",
+        "*",
+        "http://frontend:4200",
+        "http://localhost:4200",
+        "http://0.0.0.0:4200"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1070,7 +1239,7 @@
         "client.secret.creation.time": "1737773487",
         "backchannel.logout.session.required": "true",
         "frontchannel.logout.session.required": "true",
-        "post.logout.redirect.uris": "+",
+        "post.logout.redirect.uris": "+##http://frontend:4200##http://localhost:4200##http://127.0.0.1:4200",
         "display.on.consent.screen": "false",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
@@ -1786,12 +1955,12 @@
           "allowed-protocol-mapper-types": [
             "oidc-address-mapper",
             "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-usermodel-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
             "saml-user-attribute-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
             "saml-user-property-mapper",
-            "saml-role-list-mapper"
+            "oidc-usermodel-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
@@ -1838,14 +2007,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-role-list-mapper",
-            "oidc-usermodel-property-mapper",
-            "oidc-address-mapper",
             "oidc-sha256-pairwise-sub-mapper",
             "oidc-full-name-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-address-mapper",
             "saml-user-property-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-usermodel-attribute-mapper"
+            "saml-user-attribute-mapper"
           ]
         }
       }
