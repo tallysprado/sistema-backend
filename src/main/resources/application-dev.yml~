@@ -1,79 +1,80 @@
-quarkus:
-  server:
-    port: 8080
-    servlet:
-      context-path: /ged/api/
-  oidc:
-    auth-server-url: http://localhost:9081/realms/sistema-backend
-    client-id: backend
-    credentials:
-      secret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
-  token:
-    allow-implicit-flow: false
-    roles:
-      role-claim-path: realm_access.roles
-    applications:
-      token-propagation: enabled
-  security:
-    auth-enabled: true
-  transaction-manager:
-    default-transaction-timeout: 300s
-  debug:
-    print-startup-times: true
-  log:
-    console:
-      level: ALL
-  http:
-    cors:
-      headers:
-        Access-Control-Allow-Origin: true
-        Access-Control-Allow-Methods: GET, POST, PUT, DELETE
-        Access-Control-Allow-Headers: accept, content-type, x-requested-with, authorization
-        Access-Control-Allow-Content-Type: application/json
-        Access-Control-Allow-Credentials: true
+'%dev':
+  quarkus:
+    server:
+      port: 8080
+      servlet:
+        context-path: /ged/api/
+    oidc:
+      auth-server-url: http://localhost:9081/realms/sistema-backend
+      client-id: backend
+      credentials:
+        secret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+    token:
+      allow-implicit-flow: false
+      roles:
+        role-claim-path: realm_access.roles
+      applications:
+        token-propagation: enabled
+    security:
+      auth-enabled: true
+    transaction-manager:
+      default-transaction-timeout: 300s
+    debug:
+      print-startup-times: true
+    log:
+      console:
+        level: ALL
+    http:
+      cors:
+        headers:
+          Access-Control-Allow-Origin: true
+          Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+          Access-Control-Allow-Headers: accept, content-type, x-requested-with, authorization
+          Access-Control-Allow-Content-Type: application/json
+          Access-Control-Allow-Credentials: true
 
-      ~: true
-      origins:
-       - http://localhost:4200
-       - http://localhost:8080
-       - http://localhost:9081
-    root-path: /ged/api
+        ~: true
+        origins:
+         - http://localhost:4200
+         - http://localhost:8080
+         - http://localhost:9081
+      root-path: /ged/api
 
-  hibernate-orm:
-    package: org.ged
-    database:
-      generation: drop-and-create
+    hibernate-orm:
+      package: org.ged
+      database:
+        generation: drop-and-create
 
-#  flyway:
-#    migrate-at-start: true
+  #  flyway:
+  #    migrate-at-start: true
 
-  datasource:
-    username: postgres
-    password: postgres
-    jdbc:
-      max-size: 20
-      min-size: 3
-      url: jdbc:postgresql://0.0.0.0:5433/sistema
+    datasource:
+      username: postgres
+      password: postgres
+      jdbc:
+        max-size: 20
+        min-size: 3
+        url: jdbc:postgresql://0.0.0.0:5433/sistema
 
-    db-kind: postgresql
-
-
-keycloak:
-  policy-enforcer:
-    enabled: true
-    lazy-load-paths: false
-    paths:
-      - /ged/api/**
+      db-kind: postgresql
 
 
-  realm: sistema-backend
-  domain: localhost:9081
-  adminClientId: backend
-  adminClientSecret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
-  client: backend
-  user: tallys
-  password: 123
-  urls:
-    auth: http://${keycloak.domain}
-tls:
-  verification: none
+  keycloak:
+    policy-enforcer:
+      enabled: true
+      lazy-load-paths: false
+      paths:
+        - /ged/api/**
+
+
+    realm: sistema-backend
+    domain: localhost:9081
+    adminClientId: backend
+    adminClientSecret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+    client: backend
+    user: tallys
+    password: 123
+    urls:
+      auth: http://${keycloak.domain}
+  tls:
+    verification: none

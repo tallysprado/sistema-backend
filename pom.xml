@@ -193,6 +193,12 @@
 
     <profiles>
         <profile>
+            <id>dev</id>
+            <properties>
+                <quarkus.profile>dev</quarkus.profile>
+            </properties>
+        </profile>
+        <profile>
             <id>native</id>
             <activation>
                 <property>

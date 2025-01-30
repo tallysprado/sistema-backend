@@ -5,10 +5,10 @@
       servlet:
         context-path: /ged/api/
     oidc:
-      auth-server-url: http://localhost:9081/realms/sistema-backend
+      auth-server-url: http://localhost:8080/realms/sistema-backend
       client-id: backend
       credentials:
-        secret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+        secret: xFRWC0fbQakBSPYUrjVTsdobn90cTLpi
     token:
       allow-implicit-flow: false
       roles:
@@ -68,9 +68,9 @@
 
 
     realm: sistema-backend
-    domain: localhost:9081
+    domain: localhost:8080
     adminClientId: backend
-    adminClientSecret: vBXOFLU2DgJosTaoAhL6XnyaQ5jsGyeT
+    adminClientSecret: xFRWC0fbQakBSPYUrjVTsdobn90cTLpi
     client: backend
     user: tallys
     password: 123

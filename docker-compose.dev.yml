@@ -1,0 +1,52 @@
+    services:
+        keycloak:
+            container_name: keycloak
+            volumes:
+                - ./imports/realm-export.json:/opt/keycloak/data/import/realm-export.json
+                - ./imports/unifor:/opt/keycloak/themes/unifor
+            command: start-dev --import-realm
+            image: quay.io/keycloak/keycloak:26.1.0
+            environment:
+                KC_DB: postgres
+                KC_DB_URL_HOST: postgres
+                KC_DB_URL_DATABASE: sistema
+                KC_DB_PASSWORD: postgres
+                KC_DB_USERNAME: postgres
+                KC_DB_SCHEMA: public
+                KEYCLOAK_ADMIN: admin
+                KEYCLOAK_ADMIN_PASSWORD: admin
+                KC_SPI_THEME_WELCOME_THEME: unifor
+
+            ports:
+                - 8080:8080
+            depends_on:
+                postgres:
+                    condition: service_healthy
+            networks:
+                - services-network
+
+        postgres:
+            image: postgres
+            container_name: postgres
+            volumes:
+                -   pgdata:/var/lib/postgresql/data
+                - ./src/main/resources/import.sql:/docker-entrypoint-initdb.d/import.sql
+            environment:
+                POSTGRES_USER: postgres
+                POSTGRES_PASSWORD: postgres
+                POSTGRES_DB: sistema
+            ports:
+                - "5433:5432"
+            healthcheck:
+                test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+                interval: 5s
+                timeout: 5s
+                retries: 5
+            networks:
+                - services-network
+
+    volumes:
+        pgdata:
+    networks:
+        services-network:
+            driver: bridge
