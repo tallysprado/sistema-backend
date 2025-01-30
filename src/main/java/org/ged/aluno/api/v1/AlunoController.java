@@ -19,7 +19,7 @@ public class AlunoController {
     @GET
     @Path("/matricula/{matricula}")
     public Response findByMatricula(String matricula) {
-        AlunoEntity aluno = AlunoEntity.find("matricula", "A" + matricula).firstResult();
+        AlunoEntity aluno = AlunoEntity.find("matricula = ?1 and usuario.status = true and usuario.dataFim is null", "A" + matricula).firstResult();
         return Response.ok(aluno).build();
     }
 

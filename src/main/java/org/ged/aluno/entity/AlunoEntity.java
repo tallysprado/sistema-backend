@@ -33,6 +33,7 @@ public class AlunoEntity extends PanacheEntityBase {
     @JoinColumn(name = "id_usuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_aluno_usuario"))
     @JsonBackReference
     private UsuarioEntity usuario;
+
     @Column(name = "matricula", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(255)")
     private String matricula;
 

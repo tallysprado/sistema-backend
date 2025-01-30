@@ -12,13 +12,11 @@ import org.ged.usuario.entity.UsuarioEntity;
 import org.ged.usuario.enums.CargoEnum;
 import org.ged.usuario.repository.UsuarioRepository;
 import org.ged.usuario.service.UsuarioService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequestScoped
@@ -34,15 +32,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioEntity save(UsuarioRequest request) {
+
+        validarRequisicao(request);
+
         UsuarioEntity usuario = UsuarioEntity
                 .builder()
                 .email(request.getEmail())
                 .cpf(request.getCpf())
                 .rg(request.getRg())
                 .cargo(request.getCargo())
+                .status(true)
+                .dataCriacao(new Date())
                 .nome(request.getNome())
                 .build();
         UsuarioEntity.persist(usuario);
+
         String matricula = null;
         if (usuario.getCargo().equals(CargoEnum.ALUNO)) {
             AlunoEntity aluno = AlunoEntity
@@ -82,6 +86,22 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuario;
     }
 
+    private static void validarRequisicao(UsuarioRequest request) {
+        Optional<UsuarioEntity> usuarioCpf = UsuarioEntity.find(
+                "cpf = ?1 AND status = true AND dataFim IS NULL", request.getCpf()).firstResultOptional();
+
+        if (usuarioCpf.isPresent()) {
+            throw new ConstraintViolationException("usuario_cpf_key: Já existe CPF cadastrado na base.", null, "usuario_cpf_key");
+        }
+
+        Optional<UsuarioEntity> usuarioNome = UsuarioEntity.find(
+                "nome = ?1 AND status = true AND dataFim IS NULL", request.getNome()).firstResultOptional();
+
+        if (usuarioNome.isPresent()) {
+            throw new ConstraintViolationException("usuario_nome_key: Já existe NOME cadastrado na base.", null, "usuario_nome_key");
+        }
+    }
+
     @Override
     public List<UsuarioEntity> findByFilter(UsuarioRequest filter) {
         return this.repository.findByFilter(filter);
@@ -89,7 +109,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<UsuarioEntity> findAll() {
-        return UsuarioEntity.listAll();
+        return UsuarioEntity.list("status = true AND dataFim is null");
     }
 
     @Override
@@ -107,20 +127,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void delete(Long matricula) {
 
         UsuarioEntity entity = UsuarioEntity.findById(matricula);
+        entity.setStatus(false);
+        entity.setDataFim(new Date());
         String mat = null;
         if(entity.getAluno()!=null){
             mat = entity.getAluno().getMatricula();
-            entity.getAluno().delete();
+//            entity.getAluno().delete();
         }
         if(entity.getProfessor()!=null){
             mat = entity.getProfessor().getMatricula();
-            entity.getProfessor().delete();
+//            entity.getProfessor().delete();
         }
         if(entity.getCoordenador()!=null){
             mat = entity.getCoordenador().getMatricula();
-            entity.getCoordenador().delete();
+//            entity.getCoordenador().delete();
         }
-        entity.delete();
+//        entity.delete();
         if(mat!=null){
             keycloakService.deleteUser(mat);
         }

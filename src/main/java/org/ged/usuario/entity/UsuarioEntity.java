@@ -13,6 +13,7 @@ import org.ged.disciplina.entity.AlunoDisciplinaEntity;
 import org.ged.disciplina.entity.DisciplinaEntity;
 import org.ged.usuario.enums.CargoEnum;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,13 +28,13 @@ public class UsuarioEntity extends PanacheEntityBase {
     @GeneratedValue(generator = "usuarioSeq")
     private Long id;
 
-    @Column(name = "nome", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(name = "nome", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String nome;
 
     @Column(name = "email", nullable = true, length = 50, columnDefinition = "VARCHAR(50)")
     private String email;
 
-    @Column(name = "cpf", nullable = false, unique = true, length = 50, columnDefinition = "VARCHAR(50)")
+    @Column(name = "cpf", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String cpf;
 
     @Column(name = "rg", nullable = true, length = 50, columnDefinition = "VARCHAR(50)")
@@ -42,6 +43,15 @@ public class UsuarioEntity extends PanacheEntityBase {
     @Column(name = "cargo", nullable = false, length = 50)
     @Enumerated(EnumType.ORDINAL)
     private CargoEnum cargo;
+
+    @Column(name = "status")
+    private Boolean status;
+
+    @Column(name="dt_cro")
+    private Date dataCriacao;
+
+    @Column(name="dt_fim")
+    private Date dataFim;
 
     @Transient
     private AlunoEntity aluno;
