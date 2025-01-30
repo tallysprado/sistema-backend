@@ -1,7 +1,7 @@
 # SistemaBackend
 
 
-## A conteinerização da aplicação está em andamento na branch docker/card01. Objetivo de reunir todos os projetos num único container sendo executado pelo compose no backend. Enquanto isto a aplicação deve ser executada manualmente pela branch main.
+## A conteinerização da aplicação está na branch docker/card01. Faca o checkout para esta branch e leia a documentacao para rodar todos os projetos em um unico container.
 
 #### Este projeto utiliza Java, Quarkus e Docker
 ## 1. Executar imagem do Keycloak e Postgresql no Docker
