@@ -3,6 +3,7 @@
 
 #### 1. Efetuar o clone dos dois projetos numa mesma pasta.
 ##### A disposicão dos dois repositórios deve estar lado a lado no mesmo diretório.
+```
 pasta_qualquer_na_area_de_trabalho/
 ├── sistema-frontend/
 │   ├── src/
@@ -12,6 +13,7 @@ pasta_qualquer_na_area_de_trabalho/
 │   ├── src/
 │   ├── pom.xml
 │   └── ...
+```
 #### 2. Abra o terminal dentro do diretório 'sistema-backend' e faca a compilacão do projeto quarkus através de:
 ```shell script
 .\mvnw package -DskipTests
