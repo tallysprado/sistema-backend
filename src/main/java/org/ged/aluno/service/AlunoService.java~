@@ -1,0 +1,4 @@
+package org.ged.aluno.service;
+
+public interface AlunoService {
+}
